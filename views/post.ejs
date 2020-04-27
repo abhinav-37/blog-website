@@ -1,0 +1,36 @@
+
+<%- include("partials/header") -%>
+
+<div class="container-login100" style="background-image: url('images/bg12.jpg');">
+  <div class="wrap-login100 div-second p-l-55 p-r-55 p-t-80 p-b-30">
+    <div class="starting-post">
+      <h1>Hey !!</h1>
+      <h1 class="post-span"><%= username%></h1>
+      <h3>These are your posts </h3>
+
+    </div>
+    <form class="pst-form" action="/showSingle" method="post">
+
+    <div class="content">
+      <%for(var i=0;i<contentarray.length;i++){ %>
+        <div class="posts">
+          <h3 class="input"> <%=contentarray[i].input %></h3>
+          <h5 class="body"> <%=contentarray[i].body.slice(0,60)+". . . " %><button class="post-button" type="post" name="postButton" value="<%= [username,contentarray[i].input] %>">Read more</button></h5>
+
+        </div>
+
+      <% } %>
+    </div>
+    </form>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+<%- include("partials/footer") -%>

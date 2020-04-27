@@ -1,0 +1,46 @@
+<%- include("partials/header") -%>
+
+	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+
+<!-- //======================================================================================================== -->
+				<form action="/register"class="login100-form validate-form" method="post">
+
+        <span class="login100-form-title p-b-37">
+          Daily journal
+        </span>
+
+				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter username">
+					<input class="input100" type="text" name="username" placeholder="username">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
+					<input class="input100" type="password" name="password" placeholder="password">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-login100-form-btn">
+					<button type="submit" name="signup-button" class="login100-form-btn">Sign up</button>
+				</div>
+
+				<div class="text-center p-t-57 p-b-20">
+					<span class="txt1">
+						Or go with
+					</span>
+				</div>
+	</form>
+			<div class="flex-c p-b-37">
+				<a href="/auth/google" class="login100-social-item">
+					<img src="images/icons/icon-google.png" alt="GOOGLE">
+				</a>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
+<%- include("partials/footer") -%>

@@ -1,0 +1,34 @@
+<%- include("partials/header") -%>
+
+
+
+<div class="container-login100" style="background-image: url('images/bg5.jpg');">
+  <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30 compose-wrap">
+    <span class=" login100-form-btn compose-btn">
+      Hi <%=nameOfUser%>
+    </span>
+    <span class="login100-form-title p-b-50">
+      Compose
+    </span>
+    <form method="post" action="/compose"class="login100-form validate-form compose-form">
+
+      <div class="wrap-input100 validate-input m-b-20 compose-title" data-validate="Enter Title">
+        <input class="input100" type="text" name="title" placeholder="Title">
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-25 compose-body" data-validate = "Enter Body">
+        <textarea class="form-control" rows="10" type="text" name="contentBody" placeholder="Body"></textarea>
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="container-login100-form-btn">
+        <button type="submit" name="compose-button" class="login100-form-btn">
+          Compose
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+<%- include("partials/footer") -%>
