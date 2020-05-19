@@ -27,9 +27,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //=====================================================================================================================
- mongoose.connect("mongodb+srv://admin-Abhinav:admin-Abhinav@cluster0-fz1t0.mongodb.net/blogDB",{
- useNewUrlParser: true,
- useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-Abhinav:admin-Abhinav@cluster0-fz1t0.mongodb.net/blogDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 //=======================================================================================================================
 
@@ -38,7 +39,7 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   googleId: String,
-  content:[]
+  content: []
 });
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -64,7 +65,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, done) {
 
     User.findOrCreate({
-      username:profile.name.givenName,
+      username: profile.name.givenName,
       googleId: profile.id
     }, function(err, user) {
       return done(err, user);
@@ -77,15 +78,18 @@ passport.use(new GoogleStrategy({
 
 
 //============================================================================================================================
-app.post("/show",function(req,res){
-  res.redirect("/"+req.body.username);
-});
-app.get("/", function(req, res) {
 
+app.get("/", function(req, res) {
   res.render("home");
 });
+app.post("/show", function(req, res) {
+  res.redirect("/" + req.body.username);
+});
 
-app.get('/auth/google',passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile']
+}));
 
 app.get('/auth/google/blog',
   passport.authenticate('google', {
@@ -94,9 +98,9 @@ app.get('/auth/google/blog',
   function(req, res) {
     res.redirect('/compose');
   });
-  app.get("/register", function(req, res) {
-    res.render("register");
-  });
+app.get("/register", function(req, res) {
+  res.render("register");
+});
 
 
 app.post("/register", function(req, res) {
@@ -133,54 +137,58 @@ app.post("/login", function(req, res) {
   });
 });
 
-app.get("/compose",function(req,res){
+app.get("/compose", function(req, res) {
   if (req.isAuthenticated()) {
 
-    res.render("compose",{
-      nameOfUser:req.user.username
+    res.render("compose", {
+      nameOfUser: req.user.username
     });
-    } else {
-      res.redirect("/");
-    }
-  });
+  } else {
+    res.redirect("/");
+  }
+});
 
 
-app.post("/compose",function(req, res) {
+app.post("/compose", function(req, res) {
 
-let data = {
-  input:req.body.title,
-  body:req.body.contentBody
-};
-req.user.content.unshift(data);
-req.user.save();
+  let data = {
+    input: req.body.title,
+    body: req.body.contentBody
+  };
+  req.user.content.unshift(data);
+  req.user.save();
 
-res.redirect("/"+req.user.username);
+  res.redirect("/" + req.user.username);
 
 });
 
 app.get("/:newUser", function(req, res) {
   let name = req.params.newUser
-  User.findOne({username:name},function(err,found){
+  User.findOne({
+    username: name
+  }, function(err, found) {
 
-      res.render("post",{
-        username:name,
-        contentarray:found.content
-      });
+    res.render("post", {
+      username: name,
+      contentarray: found.content
+    });
   });
 
 
 });
-app.post("/showSingle",function(req,res){
+app.post("/showSingle", function(req, res) {
   let myarray = req.body.postButton.split(",");
   console.log(myarray);
-  User.findOne({username:myarray[0]},function(err,found){
+  User.findOne({
+    username: myarray[0]
+  }, function(err, found) {
     var fC = found.content
-    for(var j=0;j<fC.length;j++){
-      if (fC[j].input===myarray[1]) {
-        res.render("singlePost",{
-          username:myarray[0],
-          title:myarray[1],
-          body:fC[j].body
+    for (var j = 0; j < fC.length; j++) {
+      if (fC[j].input === myarray[1]) {
+        res.render("singlePost", {
+          username: myarray[0],
+          title: myarray[1],
+          body: fC[j].body
         });
       }
 
@@ -189,7 +197,7 @@ app.post("/showSingle",function(req,res){
   });
 
 
-  });
+});
 
 
 
@@ -198,8 +206,4 @@ app.post("/showSingle",function(req,res){
 
 
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-    port = 8000;
-  }
-app.listen(port);
+app.listen(process.env.PORT || 3000);
