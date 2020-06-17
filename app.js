@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
@@ -56,22 +56,22 @@ passport.deserializeUser(function(id, done) {
   });
 });
 //==============================================================================================================================
-// passport.use(new GoogleStrategy({
-//     clientID: process.env.CLIENT_ID,
-//     clientSecret: process.env.CLIENT_SECRET,
-//     callbackURL: "http://localhost:3000/auth/google/blog",
-//
-//   },
-//   function(accessToken, refreshToken, profile, done) {
-//
-//     User.findOrCreate({
-//       username: profile.name.givenName,
-//       googleId: profile.id
-//     }, function(err, user) {
-//       return done(err, user);
-//     });
-//   }
-// ));
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/blog",
+
+  },
+  function(accessToken, refreshToken, profile, done) {
+
+    User.findOrCreate({
+      username: profile.name.givenName,
+      googleId: profile.id
+    }, function(err, user) {
+      return done(err, user);
+    });
+  }
+));
 
 
 
@@ -198,12 +198,6 @@ app.post("/showSingle", function(req, res) {
 
 
 });
-
-
-
-
-
-
 
 
 app.listen(process.env.PORT || 3000);
