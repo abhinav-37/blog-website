@@ -27,7 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //=====================================================================================================================
-mongoose.connect("mongodb+srv://admin-Abhinav:admin-Abhinav@cluster0-fz1t0.mongodb.net/blogDB", {
+mongoose.connect("mongodb+srv://admin-Abhinav:<password>@cluster0-fz1t0.mongodb.net/blogDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
